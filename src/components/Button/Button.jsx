@@ -1,7 +1,9 @@
 import React from 'react';
 
-const Button = ({ text, Update }) => {
-  return <ButtonStyled onClick={Update}>{text}</ButtonStyled>;
+import { ButtonStyled } from './Button.styled';
+
+const Button = ({ text, onUpdate }) => {
+  return <ButtonStyled onClick={onUpdate}>{text}</ButtonStyled>;
 };
 
 export default Button;
