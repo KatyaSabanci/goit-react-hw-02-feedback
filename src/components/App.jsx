@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Feedback from './Feedback/Feedback';
-import Statistics from './Statistics/Statistics';
-import Notification from './Notification/Notifaction';
+import Statistics from './Statistics';
+import Feedback from './Feedback';
+import Notification from './Notification';
 
 export class App extends Component {
   state = {
@@ -9,6 +9,7 @@ export class App extends Component {
     neutral: 0,
     bad: 0,
   };
+
   onUpdate = review => {
     this.setState(prevState => {
       return {
@@ -17,36 +18,39 @@ export class App extends Component {
     });
   };
 
-  getPercent = () => {
-    const { good } = this.state;
-    const { total } = this.getTotal();
-    return (good / total) * 100;
-  };
   getTotal = () => {
     const { good, neutral, bad } = this.state;
-    return good + bad + neutral;
+    return good + neutral + bad;
   };
 
-  render = () => {
-    const { good, neutral, bad } = this.state;
-    const total = this.getTotal;
-    const percentage = this.getPercent;
-    const options = Object.key(this.state);
+  getPercent = () => {
+    const { good } = this.state;
+    const total = this.getTotal();
+    return (good / total) * 100;
+  };
 
+  render() {
+    const { good, neutral, bad } = this.state;
+    const total = this.getTotal();
+    const percentGood = this.getPercent();
+    const options = Object.keys(this.state);
     return (
       <>
-        <h2>PLease Leave Feadback</h2>
-        <Feedback variables={options} Update={this.onUpdate} />
+        <h2>Please leave feedback</h2>
+        <Feedback variables={options} onUpdate={this.onUpdate} />
         <h2>Statistics</h2>
         {total > 0 ? (
-          <Statistics>
-            good={good}, neutral={neutral}, bad={bad}, total={total}, percent=
-            {percentage}
-          </Statistics>
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            percent={percentGood}
+          />
         ) : (
           <Notification />
         )}
       </>
     );
-  };
+  }
 }

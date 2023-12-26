@@ -1,15 +1,16 @@
+import Button from 'components/Button';
 import React from 'react';
-import Button from '../Button/Button';
 
 const Feedback = ({ variables, onUpdate }) => {
   return (
     <div>
       {variables.map(item => {
         return (
-          <Button>
-            key = {item}, onUpdate = {() => onUpdate(item)}, text =
-            {item.replace(item[0], item.toUpperCase())}
-          </Button>
+          <Button
+            key={item}
+            onUpdate={() => onUpdate(item)}
+            text={item.replace(item[0], item[0].toUpperCase())}
+          />
         );
       })}
     </div>

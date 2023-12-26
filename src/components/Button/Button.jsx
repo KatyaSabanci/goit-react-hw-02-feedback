@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ButtonStyled } from './Button.styled';
 
 const Button = ({ text, onUpdate }) => {
